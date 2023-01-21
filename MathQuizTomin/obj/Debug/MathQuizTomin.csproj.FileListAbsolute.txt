@@ -1,0 +1,11 @@
+C:\Users\egort\source\repos\MathQuizTomin\bin\Debug\MathQuizTomin.exe.config
+C:\Users\egort\source\repos\MathQuizTomin\bin\Debug\MathQuizTomin.exe
+C:\Users\egort\source\repos\MathQuizTomin\bin\Debug\MathQuizTomin.pdb
+C:\Users\egort\source\repos\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.AssemblyReference.cache
+C:\Users\egort\source\repos\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.SuggestedBindingRedirects.cache
+C:\Users\egort\source\repos\MathQuizTomin\obj\Debug\MathQuizTomin.Form1.resources
+C:\Users\egort\source\repos\MathQuizTomin\obj\Debug\MathQuizTomin.Properties.Resources.resources
+C:\Users\egort\source\repos\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.GenerateResource.cache
+C:\Users\egort\source\repos\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.CoreCompileInputs.cache
+C:\Users\egort\source\repos\MathQuizTomin\obj\Debug\MathQuizTomin.exe
+C:\Users\egort\source\repos\MathQuizTomin\obj\Debug\MathQuizTomin.pdb
