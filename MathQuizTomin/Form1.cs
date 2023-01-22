@@ -97,6 +97,10 @@ namespace MathQuizTomin
             timeLeft = 30;
             timeLabel.Text = "30 seconds";
             timer1.Start();
+            {
+                    if (timeLeft == 30)
+                        timeLabel.BackColor = Color.White;
+                }
             
 
 
