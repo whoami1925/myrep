@@ -66,7 +66,7 @@ namespace MathQuizTomin
             // into strings so that they can be displayed
             // in the label controls.
             plusLeftLabel.Text = addend1.ToString();
-            plusRightLabel.Text = addend2.ToString();
+            label4.Text = addend2.ToString();
 
             // 'sum' is the name of the NumericUpDown control.
             // This step makes sure its value is zero before
@@ -76,14 +76,14 @@ namespace MathQuizTomin
             minuend = randomizer.Next(1, 101);
             subtrahend = randomizer.Next(1, minuend);
             minusLeftLabel.Text = minuend.ToString();
-            minusRightLabel.Text = subtrahend.ToString();
+            label6.Text = subtrahend.ToString();
             difference.Value = 0;
 
             // Fill in the multiplication problem.
             multiplicand = randomizer.Next(2, 11);
             multiplier = randomizer.Next(2, 11);
             timesLeftLabel.Text = multiplicand.ToString();
-            timesRightLabel.Text = multiplier.ToString();
+            label10.Text = multiplier.ToString();
             product.Value = 0;
 
             // Fill in the division problem.
@@ -91,7 +91,7 @@ namespace MathQuizTomin
             int temporaryQuotient = randomizer.Next(2, 11);
             dividend = divisor * temporaryQuotient;
             dividedLeftLabel.Text = dividend.ToString();
-            dividedRightLabel.Text = divisor.ToString();
+            label14.Text = divisor.ToString();
             quotient.Value = 0;
             // Start the timer. 
             timeLeft = 30;
@@ -235,6 +235,26 @@ namespace MathQuizTomin
         {
             StartTheQuiz();
             startButton.Enabled = false;
+        }
+
+        private void dividedLeftLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void plusRightLabel_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timesRightLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
     }
