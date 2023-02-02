@@ -9,3 +9,14 @@ C:\Users\egort\source\repos\PictureViewerTomin\obj\Debug\PictureViewerTomin.cspr
 C:\Users\egort\source\repos\PictureViewerTomin\obj\Debug\PictureViewerTomin.csproj.CoreCompileInputs.cache
 C:\Users\egort\source\repos\PictureViewerTomin\obj\Debug\PictureViewerTomin.exe
 C:\Users\egort\source\repos\PictureViewerTomin\obj\Debug\PictureViewerTomin.pdb
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\bin\Debug\PictureViewerTomin.exe.config
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\bin\Debug\PictureViewerTomin.exe
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\bin\Debug\PictureViewerTomin.pdb
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\obj\Debug\PictureViewerTomin.csproj.AssemblyReference.cache
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\obj\Debug\PictureViewerTomin.csproj.SuggestedBindingRedirects.cache
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\obj\Debug\PictureViewerTomin.Form1.resources
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\obj\Debug\PictureViewerTomin.Properties.Resources.resources
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\obj\Debug\PictureViewerTomin.csproj.GenerateResource.cache
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\obj\Debug\PictureViewerTomin.csproj.CoreCompileInputs.cache
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\obj\Debug\PictureViewerTomin.exe
+C:\Users\student\Downloads\myrep-main (3)\myrep-main\PictureViewerTomin\obj\Debug\PictureViewerTomin.pdb

@@ -106,5 +106,29 @@ namespace PictureViewerTomin
             // Clear the picture.
             pictureBox1.Image = null;
         }
+
+        private void растянутьToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage; ;
+        }
+
+        private void изменитьФонToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // Show the color dialog box. If the user clicks OK, change the
+            // PictureBox control's background to the color the user chose.
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+                pictureBox1.BackColor = colorDialog1.Color;
+        }
+
+        private void очиститьToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // Clear the picture.
+            pictureBox1.Image = null;
+        }
+
+        private void правкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
