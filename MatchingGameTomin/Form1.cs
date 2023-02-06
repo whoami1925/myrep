@@ -172,9 +172,14 @@ namespace MatchingGameTomin
             // If the loop didn’t return, it didn't find
             // any unmatched icons
             // That means the user won. Show a message and close the form
-            MessageBox.Show("You matched all the icons!", "Congratulations");
+            MessageBox.Show("Вы нашли все иконки!", "Поздравляем");
             Close();
 
+        }
+
+        private void начатьЗановоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
     }
 
