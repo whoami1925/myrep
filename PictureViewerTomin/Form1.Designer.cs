@@ -47,6 +47,7 @@
             this.растянутьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.изменитьФонToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.очиститьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.вернутьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -62,13 +63,13 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 65);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 50);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 301);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 317);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
@@ -78,17 +79,17 @@
             this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 2);
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(2, 2);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(596, 266);
+            this.pictureBox1.Size = new System.Drawing.Size(596, 281);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(2, 272);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBox1.Location = new System.Drawing.Point(2, 287);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(78, 17);
             this.checkBox1.TabIndex = 1;
@@ -105,17 +106,17 @@
             this.flowLayoutPanel1.Controls.Add(this.closeButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(92, 272);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(92, 287);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(506, 27);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(506, 28);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // showButton
             // 
             this.showButton.AutoSize = true;
             this.showButton.Location = new System.Drawing.Point(394, 2);
-            this.showButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.showButton.Margin = new System.Windows.Forms.Padding(2);
             this.showButton.Name = "showButton";
             this.showButton.Size = new System.Drawing.Size(110, 23);
             this.showButton.TabIndex = 0;
@@ -127,7 +128,7 @@
             // 
             this.clearButton.AutoSize = true;
             this.clearButton.Location = new System.Drawing.Point(282, 2);
-            this.clearButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(2);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(108, 23);
             this.clearButton.TabIndex = 1;
@@ -139,7 +140,7 @@
             // 
             this.backgroundButton.AutoSize = true;
             this.backgroundButton.Location = new System.Drawing.Point(146, 2);
-            this.backgroundButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.backgroundButton.Margin = new System.Windows.Forms.Padding(2);
             this.backgroundButton.Name = "backgroundButton";
             this.backgroundButton.Size = new System.Drawing.Size(132, 23);
             this.backgroundButton.TabIndex = 2;
@@ -151,7 +152,7 @@
             // 
             this.closeButton.AutoSize = true;
             this.closeButton.Location = new System.Drawing.Point(81, 2);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeButton.Margin = new System.Windows.Forms.Padding(2);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(61, 23);
             this.closeButton.TabIndex = 3;
@@ -201,14 +202,14 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.открытьToolStripMenuItem.Text = "Открыть ";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // закрытьToolStripMenuItem
             // 
             this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.закрытьToolStripMenuItem.Text = "Закрыть";
             this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
             // 
@@ -217,10 +218,12 @@
             this.правкаToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.растянутьToolStripMenuItem1,
             this.изменитьФонToolStripMenuItem1,
-            this.очиститьToolStripMenuItem1});
+            this.очиститьToolStripMenuItem1,
+            this.вернутьToolStripMenuItem});
             this.правкаToolStripMenuItem1.Name = "правкаToolStripMenuItem1";
             this.правкаToolStripMenuItem1.Size = new System.Drawing.Size(59, 20);
             this.правкаToolStripMenuItem1.Text = "Правка";
+            this.правкаToolStripMenuItem1.Click += new System.EventHandler(this.правкаToolStripMenuItem1_Click);
             // 
             // растянутьToolStripMenuItem1
             // 
@@ -243,18 +246,27 @@
             this.очиститьToolStripMenuItem1.Text = "Очистить";
             this.очиститьToolStripMenuItem1.Click += new System.EventHandler(this.очиститьToolStripMenuItem1_Click);
             // 
+            // вернутьToolStripMenuItem
+            // 
+            this.вернутьToolStripMenuItem.Name = "вернутьToolStripMenuItem";
+            this.вернутьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.вернутьToolStripMenuItem.Text = "Вернуть";
+            this.вернутьToolStripMenuItem.Click += new System.EventHandler(this.вернутьToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(600, 367);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.menuStrip2);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -288,6 +300,7 @@
         private System.Windows.Forms.ToolStripMenuItem растянутьToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem изменитьФонToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem очиститьToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem вернутьToolStripMenuItem;
     }
 }
 

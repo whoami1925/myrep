@@ -130,5 +130,20 @@ namespace PictureViewerTomin
         {
 
         }
+
+        private void правкаToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void вернутьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
+        }
     }
 }
