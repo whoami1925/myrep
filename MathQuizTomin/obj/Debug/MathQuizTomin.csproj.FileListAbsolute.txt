@@ -20,3 +20,14 @@ C:\Users\student\Desktop\myrep\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.
 C:\Users\student\Desktop\myrep\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.CoreCompileInputs.cache
 C:\Users\student\Desktop\myrep\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.exe
 C:\Users\student\Desktop\myrep\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.pdb
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\bin\Debug\MathQuizTomin.exe.config
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\bin\Debug\MathQuizTomin.exe
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\bin\Debug\MathQuizTomin.pdb
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.AssemblyReference.cache
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.SuggestedBindingRedirects.cache
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.Form1.resources
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.Properties.Resources.resources
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.GenerateResource.cache
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.csproj.CoreCompileInputs.cache
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.exe
+C:\Users\student\Downloads\myrep-main (5)\myrep-main\MathQuizTomin\obj\Debug\MathQuizTomin.pdb

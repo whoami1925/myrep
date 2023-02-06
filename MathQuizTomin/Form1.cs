@@ -256,6 +256,11 @@ namespace MathQuizTomin
         {
 
         }
+
+        private void minusLeftLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     }
 
