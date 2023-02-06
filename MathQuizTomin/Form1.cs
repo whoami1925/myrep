@@ -182,8 +182,8 @@ namespace MathQuizTomin
                 // got the answer right. Stop the timer  
                 // and show a MessageBox.
                 timer1.Stop();
-                MessageBox.Show("You got all the answers right!",
-                                "Congratulations!");
+                MessageBox.Show("Вы ответили правильно!",
+                                "Поздравляем!");
                 startButton.Enabled = true;
             }
             else if (timeLeft > 0)
@@ -204,8 +204,8 @@ namespace MathQuizTomin
                 // If the user ran out of time, stop the timer, show
                 // a MessageBox, and fill in the answers.
                 timer1.Stop();
-                timeLabel.Text = "Time's up!";
-                MessageBox.Show("You didn't finish in time.", "Sorry!");
+                timeLabel.Text = "Время вышло!";
+                MessageBox.Show("Вы не закончили вовремя.", "Извините!");
                 sum.Value = addend1 + addend2;
                 difference.Value = minuend - subtrahend;
                 product.Value = multiplicand * multiplier;
