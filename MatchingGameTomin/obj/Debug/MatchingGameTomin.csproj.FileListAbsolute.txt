@@ -20,3 +20,14 @@ C:\Users\student\Downloads\myrep-main (5)\myrep-main\MatchingGameTomin\obj\Debug
 C:\Users\student\Downloads\myrep-main (5)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.csproj.CoreCompileInputs.cache
 C:\Users\student\Downloads\myrep-main (5)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.exe
 C:\Users\student\Downloads\myrep-main (5)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.pdb
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\bin\Debug\MatchingGameTomin.exe.config
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\bin\Debug\MatchingGameTomin.exe
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\bin\Debug\MatchingGameTomin.pdb
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.csproj.AssemblyReference.cache
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.csproj.SuggestedBindingRedirects.cache
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.Form1.resources
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.Properties.Resources.resources
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.csproj.GenerateResource.cache
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.csproj.CoreCompileInputs.cache
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.exe
+C:\Users\student\Downloads\myrep-main (6)\myrep-main\MatchingGameTomin\obj\Debug\MatchingGameTomin.pdb

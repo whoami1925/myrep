@@ -172,7 +172,7 @@ namespace MatchingGameTomin
             // If the loop didn’t return, it didn't find
             // any unmatched icons
             // That means the user won. Show a message and close the form
-            MessageBox.Show("Вы нашли все иконки!", "Поздравляем");
+            MessageBox.Show("Вы нашли все иконки!", "Поздравляем!");
             Close();
 
         }
@@ -180,6 +180,11 @@ namespace MatchingGameTomin
         private void начатьЗановоToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Restart();
+        }
+
+        private void менюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
