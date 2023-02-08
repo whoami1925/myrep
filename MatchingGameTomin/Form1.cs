@@ -186,6 +186,19 @@ namespace MatchingGameTomin
         {
 
         }
-    }
 
+        private void начатьЗановоToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form Form1 = new Form1();
+            Form1.Show();
+
+        }
+
+        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+    }
+    
 }
