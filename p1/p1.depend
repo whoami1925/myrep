@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1678978655 source:c:\users\egort\onedrive\Рабочий стол\p1\func.cpp
+	"func.h"
+
+1678978655 c:\users\egort\onedrive\Рабочий стол\p1\func.h
+
+1678978655 source:c:\users\egort\onedrive\Рабочий стол\p1\main.cpp
+	<iostream>
+	"func.h"
+
+1678993857 source:c:\users\egort\hw.cpp
+	<iostream>
+
