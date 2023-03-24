@@ -1,20 +1,20 @@
-#include <iostream>
-#include <vector>
-#include<fstream>
+#include <iostream> 
 using namespace std;
-int main()
-{
-    setlocale(0, "");;
-    ifstream fin("участники.txt");
-    ofstream fout("результат.txt\n");
-    string Tomin, Streltsov, Alekhin;
-    cout<< "введите данные первого участника"<< endl;
-    getline(fin, Tomin\n); 
-    cout<< "введите данные второго участника"<< endl;
-    getline(fin, Streltsov\n);
-    cout<< "введите данные третьего участника"<< endl;
-    getline(fin, Alekhin\n);
-    fout << Tomin << Streltsov << Alekhin << endl;
-    fin.close();
-    fout.close();
-}
+int main(){ 
+    int h, m, s; 
+    int h2, m2, s2; 
+    int res, res2, result; 
+    int resh, resm, ress; 
+    cin >> h >> m >> s;
+    cin >> h2 >> m2 >> s2;
+    res=h*3600+m*60+s; 
+    res2=h2*3600+m2*60+s2; 
+    result=res2-res; 
+    cout<< result; 
+    resh=result/3600; 
+    resm=(result-resh*3600)/60; 
+    ress=result-resh*3600-resm*60; 
+    cout<< resh << " " << resm << " " << ress<< endl; 
+    return 0; 
+     
+    }
