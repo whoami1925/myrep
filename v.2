@@ -1,0 +1,68 @@
+import pandas as pd
+import mysql.connector
+from mysql.connector import Error
+
+# Параметры подключения к MySQL
+config = {
+    'user': 'your_username',  # Замените на ваше имя пользователя
+    'password': 'your_password',  # Замените на ваш пароль
+    'host': 'localhost',  # Замените на хост, если это не локальная база
+    'database': 'your_database',  # Замените на имя вашей базы данных
+    'raise_on_warnings': True
+}
+
+# Функция для подключения к MySQL
+def create_connection():
+    try:
+        connection = mysql.connector.connect(**config)
+        if connection.is_connected():
+            print("Подключение к MySQL успешно установлено")
+            return connection
+    except Error as e:
+        print(f"Ошибка подключения к MySQL: {e}")
+        return None
+
+# Функция для вставки данных из Excel в таблицу MySQL
+def insert_data_from_excel(connection, excel_file, table_name):
+    try:
+        # Чтение данных из Excel
+        df = pd.read_excel(excel_file)
+        print("Данные из Excel успешно загружены")
+
+        # Преобразование данных в список кортежей
+        data = [tuple(row) for row in df.to_numpy()]
+        columns = ', '.join(df.columns)  # Названия колонок
+
+        # Создание курсора
+        cursor = connection.cursor()
+
+        # Подготовка SQL-запроса
+        placeholders = ', '.join(['%s'] * len(df.columns))
+        query = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
+
+        # Вставка данных
+        cursor.executemany(query, data)
+        connection.commit()
+        print(f"Добавлено {len(data)} записей в таблицу {table_name}")
+
+    except Error as e:
+        print(f"Ошибка при вставке данных: {e}")
+    finally:
+        if cursor:
+            cursor.close()
+
+# Основная функция
+def main():
+    # Путь к Excel-файлу
+    excel_file = "path_to_your_excel_file.xlsx"  # Замените на путь к вашему файлу Excel
+    table_name = "your_table_name"  # Замените на имя вашей таблицы в MySQL
+
+    # Подключение к базе данных
+    connection = create_connection()
+    if connection:
+        # Вставка данных из Excel в таблицу
+        insert_data_from_excel(connection, excel_file, table_name)
+        connection.close()
+
+if __name__ == "__main__":
+    main()
