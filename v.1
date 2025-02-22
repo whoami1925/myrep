@@ -1,0 +1,180 @@
+import mysql.connector
+from mysql.connector import Error
+import tkinter as tk
+from tkinter import ttk, messagebox
+
+# Параметры подключения к MySQL
+config = {
+    'user': 'your_username',  # Замените на ваше имя пользователя
+    'password': 'your_password',  # Замените на ваш пароль
+    'host': 'localhost',  # Замените на хост, если это не локальная база
+    'database': 'your_database',  # Замените на имя вашей базы данных
+    'raise_on_warnings': True
+}
+
+# Функция для подключения к MySQL
+def create_connection():
+    try:
+        connection = mysql.connector.connect(**config)
+        if connection.is_connected():
+            print("Подключение к MySQL успешно установлено")
+            return connection
+    except Error as e:
+        print(f"Ошибка подключения к MySQL: {e}")
+        return None
+
+# Функция для создания таблицы
+def create_table(connection):
+    try:
+        cursor = connection.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS my_table (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                column1 VARCHAR(255),
+                column2 VARCHAR(255),
+                column3 INT
+            )
+        ''')
+        print("Таблица создана или уже существует")
+    except Error as e:
+        print(f"Ошибка при создании таблицы: {e}")
+
+# Функция для получения данных из таблицы
+def fetch_data(connection):
+    try:
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM my_table")
+        rows = cursor.fetchall()
+        return rows
+    except Error as e:
+        print(f"Ошибка при получении данных: {e}")
+        return []
+
+# Функция для добавления данных
+def insert_data(connection, column1, column2, column3):
+    try:
+        cursor = connection.cursor()
+        query = '''
+            INSERT INTO my_table (column1, column2, column3)
+            VALUES (%s, %s, %s)
+        '''
+        cursor.execute(query, (column1, column2, column3))
+        connection.commit()
+        print(f"Добавлена новая запись: {column1}, {column2}, {column3}")
+        return True
+    except Error as e:
+        print(f"Ошибка при вставке данных: {e}")
+        return False
+
+# Функция для удаления данных
+def delete_data(connection, id):
+    try:
+        cursor = connection.cursor()
+        query = "DELETE FROM my_table WHERE id = %s"
+        cursor.execute(query, (id,))
+        connection.commit()
+        print(f"Запись с ID {id} удалена")
+        return True
+    except Error as e:
+        print(f"Ошибка при удалении данных: {e}")
+        return False
+
+# Функция для обновления данных в таблице GUI
+def refresh_table(tree, connection):
+    for row in tree.get_children():
+        tree.delete(row)
+    rows = fetch_data(connection)
+    for row in rows:
+        tree.insert("", tk.END, values=row)
+
+# Функция для создания интерфейса
+def create_gui(connection):
+    root = tk.Tk()
+    root.title("Управление данными MySQL")
+
+    # Фрейм для Treeview
+    frame = ttk.Frame(root)
+    frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+
+    # Создаем Treeview для отображения данных
+    tree = ttk.Treeview(frame, columns=("ID", "Column1", "Column2", "Column3"), show="headings")
+    tree.heading("ID", text="ID")
+    tree.heading("Column1", text="Column1")
+    tree.heading("Column2", text="Column2")
+    tree.heading("Column3", text="Column3")
+    tree.pack(fill=tk.BOTH, expand=True)
+
+    # Фрейм для кнопок
+    button_frame = ttk.Frame(root)
+    button_frame.pack(fill=tk.X, padx=10, pady=10)
+
+    # Кнопка для обновления данных
+    refresh_button = ttk.Button(button_frame, text="Обновить", command=lambda: refresh_table(tree, connection))
+    refresh_button.pack(side=tk.LEFT, padx=5)
+
+    # Кнопка для добавления данных
+    add_button = ttk.Button(button_frame, text="Добавить", command=lambda: open_add_window(connection, tree))
+    add_button.pack(side=tk.LEFT, padx=5)
+
+    # Кнопка для удаления данных
+    delete_button = ttk.Button(button_frame, text="Удалить", command=lambda: delete_selected(tree, connection))
+    delete_button.pack(side=tk.LEFT, padx=5)
+
+    # Заполняем таблицу данными при запуске
+    refresh_table(tree, connection)
+
+    # Функция для открытия окна добавления данных
+    def open_add_window(connection, tree):
+        add_window = tk.Toplevel(root)
+        add_window.title("Добавить запись")
+
+        # Поля для ввода данных
+        ttk.Label(add_window, text="Column1:").grid(row=0, column=0, padx=5, pady=5)
+        column1_entry = ttk.Entry(add_window)
+        column1_entry.grid(row=0, column=1, padx=5, pady=5)
+
+        ttk.Label(add_window, text="Column2:").grid(row=1, column=0, padx=5, pady=5)
+        column2_entry = ttk.Entry(add_window)
+        column2_entry.grid(row=1, column=1, padx=5, pady=5)
+
+        ttk.Label(add_window, text="Column3:").grid(row=2, column=0, padx=5, pady=5)
+        column3_entry = ttk.Entry(add_window)
+        column3_entry.grid(row=2, column=1, padx=5, pady=5)
+
+        # Кнопка для подтверждения добавления
+        ttk.Button(add_window, text="Добавить", command=lambda: save_data(
+            connection, tree, column1_entry.get(), column2_entry.get(), column3_entry.get(), add_window)
+        ).grid(row=3, column=0, columnspan=2, pady=10)
+
+    # Функция для сохранения данных
+    def save_data(connection, tree, column1, column2, column3, window):
+        if insert_data(connection, column1, column2, column3):
+            refresh_table(tree, connection)
+            window.destroy()
+        else:
+            messagebox.showerror("Ошибка", "Не удалось добавить данные")
+
+    # Функция для удаления выбранной записи
+    def delete_selected(tree, connection):
+        selected_item = tree.selection()
+        if not selected_item:
+            messagebox.showwarning("Предупреждение", "Выберите запись для удаления")
+            return
+        item_id = tree.item(selected_item[0], "values")[0]
+        if delete_data(connection, item_id):
+            refresh_table(tree, connection)
+        else:
+            messagebox.showerror("Ошибка", "Не удалось удалить данные")
+
+    root.mainloop()
+
+# Основная функция
+def main():
+    connection = create_connection()
+    if connection:
+        create_table(connection)
+        create_gui(connection)
+        connection.close()
+
+if __name__ == "__main__":
+    main()
