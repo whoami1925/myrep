@@ -1,106 +1,100 @@
-pip install mysql-connector-python
-
-
 import mysql.connector
 import tkinter as tk
-from tkinter import ttk, messagebox
-
+from tkinter import messagebox
 
 class EmployeeApp(tk.Tk):
     def __init__(self):
         super().__init__()
+
         self.title("Система учёта задач сотрудников")
         self.geometry("900x600")
         self.configure(bg="#2E2E2E")
 
+        # Поля для логина
+        self.label_username = tk.Label(self, text="Логин:", bg="#2E2E2E", fg="white")
+        self.label_username.pack(pady=5)
+
+        self.entry_username = tk.Entry(self)
+        self.entry_username.pack(pady=5)
+
+        # Поля для пароля
+        self.label_password = tk.Label(self, text="Пароль:", bg="#2E2E2E", fg="white")
+        self.label_password.pack(pady=5)
+
+        self.entry_password = tk.Entry(self, show="*")
+        self.entry_password.pack(pady=5)
+
+        # Кнопка для входа
+        self.button_login = tk.Button(self, text="Войти", command=self.on_login_click)
+        self.button_login.pack(pady=20)
+
+    def connect_to_db(self):
         try:
-            self.db = mysql.connector.connect(
+            conn = mysql.connector.connect(
                 host="localhost",
                 user="root",
                 password="root",
                 database="tom"
             )
-            import tkinter as tk
-            from tkinter import messagebox
-            import mysql.connector
+            return conn
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+            return None
 
-            db_config = {
-                'host': 'localhost',
-                'user': 'root',
-                'password': 'root',
-                'database': 'tom'
-            }
+    def check_login(self, username, password):
+        conn = self.connect_to_db()
+        if conn is None:
+            return False
 
-            def connect_to_db():
-                try:
-                    conn = mysql.connector.connect(**db_config)
-                    return conn
-                except mysql.connector.Error as err:
-                    print(f"Error: {err}")
-                    return None
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+        user = cursor.fetchone()
 
-            def check_login(username, password):
-                conn = connect_to_db()
-                if conn is None:
-                    return False
+        conn.close()
 
-                cursor = conn.cursor()
-                cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
-                user = cursor.fetchone()
+        if user and user[2] == password:  # user[2] - это пароль
+            return user[3]  # user[3] - это роль (user или admin)
+        return False
 
-                conn.close()
+    def on_login_click(self):
+        username = self.entry_username.get()
+        password = self.entry_password.get()
 
-                if user and user[2] == password:  # user[2] - это пароль
-                    return user[3]  # user[3] - это роль (user или admin)
-                return False
-
-            def on_login_click():
-                username = entry_username.get()
-                password = entry_password.get()
-
-                if username and password:
-                    role = check_login(username, password)
-                    if role:
-                        if role == 'admin':
-                            messagebox.showinfo("Добро пожаловать", "Вы вошли как администратор!")
-                        else:
-                            messagebox.showinfo("Добро пожаловать", "Вы вошли как пользователь!")
-                    else:
-                        messagebox.showerror("Ошибка", "Неверный логин или пароль!")
+        if username and password:
+            role = self.check_login(username, password)
+            if role:
+                if role == 'admin':
+                    messagebox.showinfo("Добро пожаловать", "Вы вошли как администратор!")
                 else:
-                    messagebox.showwarning("Ошибка", "Пожалуйста, заполните все поля!")
+                    messagebox.showinfo("Добро пожаловать", "Вы вошли как пользователь!")
+            else:
+                messagebox.showerror("Ошибка", "Неверный логин или пароль!")
+        else:
+            messagebox.showwarning("Ошибка", "Пожалуйста, заполните все поля!")
 
-            root = tk.Tk()
-            root.title("Вход в систему")
-            root.geometry("300x200")
-
-            label_username = tk.Label(root, text="Логин:")
-            label_username.pack(pady=5)
-            entry_username = tk.Entry(root)
-            entry_username.pack(pady=5)
-
-            label_password = tk.Label(root, text="Пароль:")
-            label_password.pack(pady=5)
-            entry_password = tk.Entry(root, show="*")
-            entry_password.pack(pady=5)
-
-            button_login = tk.Button(root, text="Войти", command=on_login_click)
-            button_login.pack(pady=20)
-
-            root.mainloop()
+if __name__ == "__main__":
+    app = EmployeeApp()
+    app.mainloop()
 
 
-CREATE DATABASE IF NOT EXISTS mydb;
-USE mydb;
 
+-- Создание базы данных (если еще не существует)
+CREATE DATABASE IF NOT EXISTS tom;
+
+-- Использование базы данных
+USE tom;
+
+-- Создание таблицы пользователей
 CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role ENUM('user', 'admin') NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Уникальный идентификатор
+    username VARCHAR(255) NOT NULL,     -- Логин пользователя
+    password VARCHAR(255) NOT NULL,     -- Пароль пользователя
+    role ENUM('user', 'admin') NOT NULL -- Роль (пользователь или администратор)
 );
 
--- Добавляем несколько тестовых пользователей
-INSERT INTO users (username, password, role)
-VALUES ('admin1', 'adminpassword', 'admin'),
-       ('user1', 'userpassword', 'user');
+-- Добавление тестовых данных
+INSERT INTO users (username, password, role) VALUES
+('admin1', 'adminpassword', 'admin'),
+('user1', 'userpassword', 'user');
+
+-- Для безопасности пароли в реальном приложении следует хэшировать, а не хранить в открытом виде.
