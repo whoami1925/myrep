@@ -2,12 +2,12 @@ import pandas as pd
 import mysql.connector
 from mysql.connector import Error
 
-# Параметры подключения к MySQL
+# Config для подключения к MySQL
 config = {
-    'user': 'your_username',  # Замените на ваше имя пользователя
-    'password': 'your_password',  # Замените на ваш пароль
-    'host': 'localhost',  # Замените на хост, если это не локальная база
-    'database': 'your_database',  # Замените на имя вашей базы данных
+    'host': "localhost",
+    'user': "root",
+    'password': "root",
+    'database': "tom",
     'raise_on_warnings': True
 }
 
@@ -24,6 +24,7 @@ def create_connection():
 
 # Функция для вставки данных из Excel в таблицу MySQL
 def insert_data_from_excel(connection, excel_file, table_name):
+    cursor = None
     try:
         # Чтение данных из Excel
         df = pd.read_excel(excel_file)
