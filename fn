@@ -1,0 +1,103 @@
+import mysql.connector
+import tkinter as tk
+from tkinter import ttk, messagebox
+
+
+class EmployeeApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Система учёта задач сотрудников")
+        self.geometry("900x600")
+        self.configure(bg="#2E2E2E")
+
+        try:
+            self.db = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="root",
+                database="tom"
+            )
+            import tkinter as tk
+            from tkinter import messagebox
+            import mysql.connector
+
+            db_config = {
+                'host': 'localhost',
+                'user': 'root',
+                'password': 'root',
+                'database': 'tom'
+            }
+
+            def connect_to_db():
+                try:
+                    conn = mysql.connector.connect(**db_config)
+                    return conn
+                except mysql.connector.Error as err:
+                    print(f"Error: {err}")
+                    return None
+
+            def check_login(username, password):
+                conn = connect_to_db()
+                if conn is None:
+                    return False
+
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+                user = cursor.fetchone()
+
+                conn.close()
+
+                if user and user[2] == password:  # user[2] - это пароль
+                    return user[3]  # user[3] - это роль (user или admin)
+                return False
+
+            def on_login_click():
+                username = entry_username.get()
+                password = entry_password.get()
+
+                if username and password:
+                    role = check_login(username, password)
+                    if role:
+                        if role == 'admin':
+                            messagebox.showinfo("Добро пожаловать", "Вы вошли как администратор!")
+                        else:
+                            messagebox.showinfo("Добро пожаловать", "Вы вошли как пользователь!")
+                    else:
+                        messagebox.showerror("Ошибка", "Неверный логин или пароль!")
+                else:
+                    messagebox.showwarning("Ошибка", "Пожалуйста, заполните все поля!")
+
+            root = tk.Tk()
+            root.title("Вход в систему")
+            root.geometry("300x200")
+
+            label_username = tk.Label(root, text="Логин:")
+            label_username.pack(pady=5)
+            entry_username = tk.Entry(root)
+            entry_username.pack(pady=5)
+
+            label_password = tk.Label(root, text="Пароль:")
+            label_password.pack(pady=5)
+            entry_password = tk.Entry(root, show="*")
+            entry_password.pack(pady=5)
+
+            button_login = tk.Button(root, text="Войти", command=on_login_click)
+            button_login.pack(pady=20)
+
+            root.mainloop()
+
+
+CREATE DATABASE IF NOT EXISTS mydb;
+USE mydb;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('user', 'admin') NOT NULL
+);
+
+-- Добавляем несколько тестовых пользователей
+INSERT INTO users (username, password, role)
+VALUES ('admin1', 'adminpassword', 'admin'),
+       ('user1', 'userpassword', 'user');
