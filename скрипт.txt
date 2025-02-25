@@ -1,0 +1,328 @@
+
+import tkinter as tk
+from tkinter import messagebox
+import mysql.connector
+import random
+import string
+from datetime import datetime, timedelta
+
+# Подключение к базе данных
+def connect_db():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root",
+        database="lab_system"
+    )
+
+# Генерация CAPTCHA
+def generate_captcha():
+    characters = string.ascii_letters + string.digits
+    captcha = ''.join(random.choices(characters, k=4))
+    return captcha
+
+# Авторизация пользователя
+def authenticate_user(login, password):
+    conn = connect_db()
+    cursor = conn.cursor()
+    query = "SELECT password, role FROM lab_technicians WHERE login = %s"
+    cursor.execute(query, (login,))
+    result = cursor.fetchone()
+
+    if result:
+        stored_password, role = result
+        if stored_password == password:
+            return True, role
+    return False, None
+
+# Проверка блокировки пользователя
+def check_user_blocked(login):
+    conn = connect_db()
+    cursor = conn.cursor()
+    query = "SELECT block_until FROM blocked_users WHERE login = %s"
+    cursor.execute(query, (login,))
+    result = cursor.fetchone()
+    if result and result[0] > datetime.now():
+        return True
+    return False
+
+# Логирование истории входов
+def log_login_attempt(login, successful):
+    conn = connect_db()
+    cursor = conn.cursor()
+    query = "INSERT INTO login_history (user_login, login_time, successful) VALUES (%s, %s, %s)"
+    cursor.execute(query, (login, datetime.now(), successful))
+    conn.commit()
+
+# Блокировка пользователя
+def block_user(login):
+    conn = connect_db()
+    cursor = conn.cursor()
+    block_until = datetime.now() + timedelta(seconds=30)  # Блокировка на 30 секунд
+    query = "INSERT INTO blocked_users (login, block_until) VALUES (%s, %s) ON DUPLICATE KEY UPDATE block_until = %s"
+    cursor.execute(query, (login, block_until, block_until))
+    conn.commit()
+
+# Авторизация с CAPTCHA
+def attempt_login_with_captcha(login_entry, password_entry, captcha_entry, main_window, captcha_label):
+    login = login_entry.get()
+    password = password_entry.get()
+
+    # Проверка блокировки пользователя
+    if check_user_blocked(login):
+        messagebox.showerror("Ошибка", "Вы заблокированы. Попробуйте позже.")
+        return
+
+    # Генерация и проверка CAPTCHA
+    captcha = generate_captcha()
+    captcha_label.config(text=captcha)
+    captcha_input = captcha_entry.get()
+
+    if captcha_input != captcha:
+        messagebox.showerror("Ошибка", "Неверная CAPTCHA. Попробуйте снова.")
+        block_user(login)
+        return
+
+    # Авторизация пользователя
+    success, role = authenticate_user(login, password)
+    if success:
+        log_login_attempt(login, True)
+        main_window.destroy()  # Закрываем окно входа
+        open_user_window(role)
+    else:
+        log_login_attempt(login, False)
+        messagebox.showerror("Ошибка", "Неверный логин или пароль.")
+
+# Окно пользователя в зависимости от его роли
+def open_user_window(role):
+    user_window = tk.Tk()
+    user_window.title(f"Добро пожаловать, {role}")
+
+    if role == 'lab_technician':
+        label = tk.Label(user_window, text="Работа лаборанта...")
+    elif role == 'accountant':
+        label = tk.Label(user_window, text="Работа бухгалтера...")
+    elif role == 'administrator':
+        label = tk.Label(user_window, text="Работа администратора...")
+
+    label.pack(pady=20)
+
+    # Добавляем кнопку выхода
+    exit_button = tk.Button(user_window, text="Выход", command=user_window.quit)
+    exit_button.pack(pady=10)
+
+    user_window.mainloop()
+
+# Окно входа
+def open_login_window():
+    login_window = tk.Tk()
+    login_window.title("Окно входа")
+
+    # Логин
+    login_label = tk.Label(login_window, text="Логин:")
+    login_label.pack(pady=5)
+    login_entry = tk.Entry(login_window)
+    login_entry.pack(pady=5)
+
+    # Пароль
+    password_label = tk.Label(login_window, text="Пароль:")
+    password_label.pack(pady=5)
+    password_entry = tk.Entry(login_window, show="*")
+    password_entry.pack(pady=5)
+
+    # CAPTCHA
+    captcha_label_text = tk.Label(login_window, text="Введите CAPTCHA:")
+    captcha_label_text.pack(pady=5)
+    captcha_entry = tk.Entry(login_window)
+    captcha_entry.pack(pady=5)
+
+    # Метка CAPTCHA
+    captcha_label = tk.Label(login_window, text="CAPTCHA будет отображена здесь")
+    captcha_label.pack(pady=5)
+
+    # Кнопка входа
+    login_button = tk.Button(login_window, text="Войти", command=lambda: attempt_login_with_captcha(login_entry, password_entry, captcha_entry, login_window, captcha_label))
+    login_button.pack(pady=20)
+
+    login_window.mainloop()
+
+if __name__ == "__main__":
+    open_login_window()
+
+
+import mysql.connector
+from getpass import getpass
+import time
+from datetime import datetime, timedelta
+
+# Подключение к базе данных
+def connect_db():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root",
+        database="lab_system"
+    )
+
+# Авторизация пользователя
+def authenticate_user():
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    # Ввод логина и пароля
+    login = input("Введите логин: ")
+    password = getpass("Введите пароль: ")
+
+    query = "SELECT password, role FROM lab_technicians WHERE login = %s"
+    cursor.execute(query, (login,))
+    result = cursor.fetchone()
+
+    if result:
+        stored_password, role = result
+        if stored_password == password:
+            print(f"Добро пожаловать, {login} ({role})!")
+            return login, role
+        else:
+            print("Неверный пароль.")
+            return None, None
+    else:
+        print("Пользователь не найден.")
+        return None, None
+
+# Проверка блокировки пользователя
+def check_user_blocked(login):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    query = "SELECT block_until FROM blocked_users WHERE login = %s"
+    cursor.execute(query, (login,))
+    result = cursor.fetchone()
+
+    if result and result[0] > datetime.now():
+        print(f"Пользователь {login} заблокирован до {result[0]}.")
+        return True
+    return False
+
+# История входов
+def log_login_attempt(login, successful):
+    conn = connect_db()
+    cursor = conn.cursor()
+    query = "INSERT INTO login_history (user_login, login_time, successful) VALUES (%s, %s, %s)"
+    cursor.execute(query, (login, datetime.now(), successful))
+    conn.commit()
+
+
+
+
+CREATE TABLE services (
+    service_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    code VARCHAR(50) NOT NULL,
+    execution_time INT NOT NULL, 
+    average_deviation DECIMAL(5, 2) NOT NULL
+);
+
+CREATE TABLE patients (
+    patient_id INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    birth_date DATE NOT NULL,
+    passport_series VARCHAR(10),
+    passport_number VARCHAR(10),
+    phone VARCHAR(20),
+    email VARCHAR(100),
+    insurance_number VARCHAR(50),
+    insurance_type VARCHAR(50),
+    insurance_company VARCHAR(255)
+);
+
+CREATE TABLE insurance_companies (
+    company_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255),
+    inn VARCHAR(20),
+    bank_account VARCHAR(50),
+    bic VARCHAR(20)
+);
+
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT,
+    order_date DATE NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+);
+
+CREATE TABLE order_services (
+    order_id INT,
+    service_id INT,
+    status VARCHAR(50) NOT NULL,
+    execution_time INT,
+    PRIMARY KEY (order_id, service_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (service_id) REFERENCES services(service_id)
+);
+
+CREATE TABLE provided_services (
+    provided_service_id INT AUTO_INCREMENT PRIMARY KEY,
+    service_id INT,
+    order_id INT,
+    analyzer_id INT,
+    executed_by INT, 
+    execution_date DATETIME,
+    FOREIGN KEY (service_id) REFERENCES services(service_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);
+
+CREATE TABLE analyzers (
+    analyzer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    last_maintenance_date DATE
+);
+
+CREATE TABLE lab_technicians (
+    technician_id INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    last_login DATETIME,
+    services_available VARCHAR(255) 
+);
+
+CREATE TABLE accountants (
+    accountant_id INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    last_login DATETIME,
+    services_invoiced VARCHAR(255) 
+);
+
+CREATE TABLE administrators (
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE login_history (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_login VARCHAR(50) NOT NULL,
+    login_time DATETIME NOT NULL,
+    successful BOOLEAN NOT NULL,
+    FOREIGN KEY (user_login) REFERENCES lab_technicians(login) 
+        ON DELETE CASCADE
+);
+
+CREATE TABLE archived_orders (
+    archive_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    archive_date DATE,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);
+
+CREATE TABLE blocked_users (
+    login VARCHAR(50) PRIMARY KEY,
+    block_until DATETIME
+);
